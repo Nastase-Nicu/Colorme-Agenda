@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#292421">
+  <meta name="description" content="Agenda de colorare Colorme Salon">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Colorme Agenda</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">C</div>
+    <div class="brand"><h1>Colorme <span>Agenda</span></h1><p>Agenda ta de colorare</p></div>
+    <button id="logout" class="button secondary" hidden>Deconectare</button>
+  </header>
+
+  <main>
+    <p id="notice" class="notice" hidden></p>
+    <section id="auth" class="panel auth-panel">
+      <h2>Intră în Colorme Agenda</h2>
+      <p>Autentifică-te pentru a vedea clienții tăi sincronizați.</p>
+      <form id="login">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="username" required placeholder="email@exemplu.ro">
+        <label for="password">Parolă</label>
+        <input id="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Minimum 6 caractere">
+        <button class="button primary full" type="submit">Autentificare</button>
+        <button class="button secondary full" id="signup" type="button">Creează cont</button>
+      </form>
+      <p id="authmsg" class="message" role="status"></p>
+    </section>
+
+    <section id="app" hidden>
+      <h2 class="section-heading">Clienți și formule</h2>
+      <div class="workspace">
+        <aside class="panel client-panel">
+          <h3>Clienți</h3>
+          <form id="newclient" class="add-client">
+            <input id="clientname" required maxlength="120" placeholder="Numele clientului" aria-label="Numele clientului">
+            <button class="button primary plus" type="submit" aria-label="Adaugă client">+</button>
+          </form>
+          <input id="search" type="search" placeholder="Caută client" aria-label="Caută client">
+          <div id="clients" class="client-list"></div>
+          <p id="clientmsg" class="message" role="status"></p>
+        </aside>
+
+        <section class="panel detail-panel">
+          <div id="empty" class="empty-state">
+            <h3>Alege un client din listă</h3>
+            <p>Sau adaugă un client nou în stânga.</p>
+          </div>
+          <div id="detail" hidden>
+            <div class="detail-heading">
+              <h3 id="chosen"></h3>
+              <button id="deleteclient" class="button danger small" type="button">Șterge client</button>
+            </div>
+            <form id="formulaform">
+              <label for="formula">Formula de colorare</label>
+              <textarea id="formula" rows="7" placeholder="Ex.: rădăcină: 7.0 + 7.1; oxidant 6%..." required></textarea>
+              <div class="formula-tools">
+                <button id="voice" class="button secondary" type="button"><span aria-hidden="true">🎙</span> Dictează formula</button>
+                <button id="stopvoice" class="button secondary" type="button" hidden>Oprește dictarea</button>
+                <span id="voicestatus" class="muted" role="status"></span>
+              </div>
+              <button class="button primary full save-button" type="submit">Salvează formula</button>
+              <p id="formmsg" class="message" role="status"></p>
+            </form>
+          </div>
+        </section>
+      </div>
+      <p id="state" class="sync-state">Se pregătește sincronizarea…</p>
+    </section>
+  </main>
+  <footer>Colorme Agenda · Sincronizare prin Supabase</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
