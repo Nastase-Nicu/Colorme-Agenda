@@ -155,13 +155,20 @@
       $("stopvoice").hidden = false;
       say("voicestatus", "Ascult… vorbește în română.");
     };
-    recognition.onresult = event => {
+       recognition.onresult = event => {
       let interim = "";
+
       for (let i = event.resultIndex; i < event.results.length; i++) {
-        const text = event.results[i][0].transcript;
-        if (event.results[i].isFinal) finalText += (finalText ? " " : "") + text;
-        else interim += text;
+        const result = event.results[i];
+        const text = result[0].transcript;
+
+        if (result.isFinal) {
+          finalText += (finalText ? " " : "") + text;
+        } else {
+          interim += text;
+        }
       }
+
       $("formula").value = [finalText, interim].filter(Boolean).join(" ");
     };
     recognition.onerror = event => say("voicestatus", event.error === "not-allowed" ? "Permite accesul la microfon în Chrome." : "Eroare de dictare: " + event.error);
